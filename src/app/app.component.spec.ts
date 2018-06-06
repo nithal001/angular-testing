@@ -1,11 +1,21 @@
 import { TestBed, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 import { AppComponent } from './app.component';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NavComponent } from './nav/nav.component';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes([])],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavComponent
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -24,4 +34,12 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to angular-testing!');
   }));
+  it('should have a router outlet', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    let de = fixture.debugElement.query(By.directive(RouterOutlet));
+
+    expect(de).not.toBeNull();
+  });
+
+ 
 });
